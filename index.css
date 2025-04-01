@@ -23,7 +23,9 @@
 }
 
 .pfp{
-   
     height: 200px;
     border-radius: 100%;
+    border: solid;
+    border-width: 2em;
+    border-color: rgb(53, 50, 214);
 }
