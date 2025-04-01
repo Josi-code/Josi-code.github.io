@@ -5,11 +5,14 @@
 
     --theme-primary:  #0D00A4 ;
     --theme-secondary: #006D6F ;
+
     --theme-accent: #CC8B86 ;
     --theme-surface: #433A3F;
 
+
     --theme-primary-content: #006D6F ;
     --theme-secondary-content: #433A3F ;
+
     --theme-accent-content: #FAF0E6 ;
     --theme-surface-content: #190D19 ;
 }
@@ -40,11 +43,6 @@
     border-color: rgb(53, 50, 214);
 }
 
-h1{
-    background: var(--theme-primary);
-    color: var(--theme-primary-content);
-}
-
 .bg-primary{
     background: var(--theme-primary);
 }
@@ -61,18 +59,34 @@ h1{
     background: var(--theme-surface);
 }
 
-.text-primary {
+.text-primary-content {
     color: var(--theme-primary-content);
 }
 
-.text-secondary {
+.text-secondary-content {
     color: var(--theme-secondary-content);
 }
 
-.text-accent {
+.text-accent-content {
     color: var(--theme-accent-content);
 }
 
-.text-surface {
+.text-surface-content {
     color: var(--theme-surface-content);
+}
+
+.text-primary {
+    color: var(--theme-primary);
+}
+
+.text-secondary {
+    color: var(--theme-secondary);
+}
+
+.text-accent {
+    color: var(--theme-accent);
+}
+
+.text-surface {
+    color: var(--theme-surface);
 }
