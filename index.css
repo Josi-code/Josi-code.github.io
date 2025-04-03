@@ -110,3 +110,57 @@
 .h-dvh {
     height: 100dvh;
 }
+
+.nav {
+    display:flex;
+    flex-direction: column;
+}
+
+.nav a {
+    color: var(--theme-accent-content);
+    text-decoration: none;
+    font-size: 1em;
+    font-family: 'Cormorant Garamond';
+    font-weight: 700;
+    padding: 2px;
+    border-radius: 1rem;
+}
+
+.nav a:hover {
+    color: var(--theme-surface-content);
+    font-family: 'Lobster';
+    background: var(--theme-accent);
+    padding: 3px;
+}
+
+.nav p {
+    display:flex;
+    flex-direction: column;
+    color: var(--theme-accent-content);
+    text-decoration: none;
+    font-size: 1em;
+    font-family: 'Cormorant Garamond';
+    font-weight: 700;
+    padding: 2px;
+    border-radius: 1rem;
+}
+
+.nav p:hover {
+    color: var(--theme-surface-content);
+    font-family: 'Lobster';
+    background: var(--theme-accent);
+    padding: 3px;
+}
+
+h1 {
+    font-family: 'Bebas Neue';
+}
+
+h1:hover {
+    color: var(--theme-accent);
+    font-family: 'Dancing Script';
+    background: var(--theme-surface-content);
+    font-weight: 700;
+    padding: 2px;
+    border-radius: 1rem;
+}
