@@ -1,48 +1,166 @@
-.flex-row{
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400..700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400..700&family=Lobster&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&family=Lobster&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Dancing+Script:wght@400..700&family=Lobster&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Dancing+Script:wght@400..700&family=Lobster&family=Shadows+Into+Light&display=swap');
+
+* {
+    inset: 0;
+    margin: 0;
+    padding: 0;
+
+    --theme-primary:  #0D00A4 ;
+    --theme-secondary: #006D6F ;
+
+    --theme-accent: #CC8B86 ;
+    --theme-surface: #433A3F;
+
+
+    --theme-primary-content: #006D6F ;
+    --theme-secondary-content: #433A3F ;
+
+    --theme-accent-content: #FAF0E6 ;
+    --theme-surface-content: #190D19 ;
+}
+
+.flex-row {
     display: flex;
     flex-direction: row;
 }
 
-.flex-col{
+.flex-col {
     display: flex;
     flex-direction: column;
 }
 
-.header {
-    background-color: aquamarine;
-    color: rgb(40, 4, 49);
-
+.justify-center {
     justify-content: center;
+}
+
+.align-center {
     align-items: center;
-    height: 64px;
-    font-size: 48px;
 }
 
-.flex-grow {
-    flex-grow: 1;
+.pfp{
+    height: 200px;
+    border-radius: 100%;
+    border: solid;
+    border-width: 10px;
+    border-color: var(--theme-secondary);
 }
 
-.nav {
-    background-color: antiquewhite;
-    width: 10%;
+.bg-primary{
+    background: var(--theme-primary);
 }
 
-.w-full {
-    width: 100%;
+.bg-secondary{
+    background: var(--theme-secondary);
 }
 
-.h-full {
-    height: 100%;
+.bg-accent{
+    background: var(--theme-accent);
+}
+
+.bg-surface{
+    background: var(--theme-surface);
+}
+
+.text-primary-content {
+    color: var(--theme-primary-content);
+}
+
+.text-secondary-content {
+    color: var(--theme-secondary-content);
+}
+
+.text-accent-content {
+    color: var(--theme-accent-content);
+}
+
+.text-surface-content {
+    color: var(--theme-surface-content);
+}
+
+.text-primary {
+    color: var(--theme-primary);
+}
+
+.text-secondary {
+    color: var(--theme-secondary);
+}
+
+.text-accent {
+    color: var(--theme-accent);
+}
+
+.text-surface {
+    color: var(--theme-surface);
 }
 
 .w-dvw {
-    min-width: 100dvw;
+    width: 100dvw;
 }
 
 .h-dvh {
-    min-height: 100dvw;
+    height: 100dvh;
+}
+
+.nav {
+    display:flex;
+    flex-direction: column;
+}
+
+.nav a {
+    color: var(--theme-accent-content);
+    text-decoration: none;
+    font-size: 1em;
+    font-family: 'Cormorant Garamond';
+    font-weight: 700;
+    padding: 2px;
+    border-radius: 1rem;
 }
 
 .nav a:hover {
-    background-color: blueviolet;
+    color: var(--theme-surface-content);
+    font-family: 'Lobster';
+    background: var(--theme-accent);
+    padding: 3px;
+}
+
+.nav p {
+    display:flex;
+    flex-direction: column;
+    color: var(--theme-accent-content);
+    text-decoration: none;
+    font-size: 1em;
+    font-family: 'Cormorant Garamond';
+    font-weight: 700;
+    padding: 2px;
+    border-radius: 1rem;
+}
+
+.nav p:hover {
+    color: var(--theme-surface-content);
+    font-family: 'Lobster';
+    background: var(--theme-accent);
+    padding: 3px;
+}
+
+h1 {
+    font-family: 'Bebas Neue';
+}
+
+h1:hover {
+    color: var(--theme-accent);
+    font-family: 'Dancing Script';
+    background: var(--theme-surface-content);
+    font-weight: 700;
+    padding: 2px;
+    border-radius: 1rem;
 }
