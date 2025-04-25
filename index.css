@@ -10,6 +10,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Dancing+Script:wght@400..700&family=Lobster&family=Shadows+Into+Light&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@700&family=Cormorant+Garamond:wght@700&family=Dancing+Script:wght@400..700&family=Kanchenjunga:wght@400;500;600;700&family=Lobster&family=Shadows+Into+Light&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@700&family=Coral+Pixels&family=Cormorant+Garamond:wght@700&family=Dancing+Script:wght@400..700&family=Kanchenjunga:wght@400;500;600;700&family=Lobster&family=Shadows+Into+Light&display=swap');
+
 * {
     inset: 0;
     margin: 0;
@@ -163,4 +167,10 @@ h1:hover {
     font-weight: 700;
     padding: 2px;
     border-radius: 1rem;
+}
+
+.easteregg {
+    height: 50px;
+    width:50px;
+
 }
