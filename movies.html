@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./index.css">
+        <title>Jocelyn Carron's Favorite Movies</title>
+    </head>
+    <body>
+        <h1>Jocelyn Carron's Favorite Movies</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>Title</td>
+                    <td>Year</td>
+                    <td>Box Art</td>
+                    <td>IMDb</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- Oliver and Company -->
+                    <td>Oliver and Company</td>
+                    <td>1988</td>
+                    <td><img src="./Oliver-and-Company-1988-movie-poster.jpeg" class="movieposter"></td>
+                    <td><a href="https://www.imdb.com/title/tt0095776/?064"> IMDb link</a></td>
+                </tr>
+                <tr>
+                    <!-- Bolt -->
+                    <td>Bolt</td>
+                    <td>2008</td>
+                    <td><img src="Bolt-movieposter.webp" class="movieposter"></td>
+                    <td><a href="https://www.imdb.com/title/tt0397892/">IMDb link</a></td>
+                </tr>
+                <tr>
+                    <!-- Epic -->
+                    <td>Epic</td>
+                    <td>2013</td>
+                    <td><img src="Epicmovie-movieposter.jpeg" class="movieposter"></td>
+                    <td><a href="https://www.imdb.com/title/tt0848537/">IMDb link</a></td>
+                </tr>
+                <tr>
+                    <!-- My Neighbor Totoro -->
+                    <td>My Neighbor Totoro</td>
+                    <td>1988</td>
+                    <td><img src="MyNeighborTotoroart.webp" class="movieposter"></td>
+                    <td><a href="https://www.imdb.com/title/tt0096283/">IMDb link</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <style>
+            table thead *{
+                font-weight: bold;
+                text-align: center;
+            }
+            table tbody tr td:nth-child(2) {
+                background: var(--theme-surface-content);
+                color: var(--theme-accent);
+                text-align: center;
+                border-radius: 50%;
+                aspect-ratio: 1;
+                padding: 0.5rem;
+                display: inline-block;
+            }
+        </style>
+    </body>
+</html>

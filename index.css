@@ -277,3 +277,7 @@ h1:hover {
     font-style: italic;
     padding: 8px;
   }
+
+  .movieposter {
+    height: 100px;
+  }
