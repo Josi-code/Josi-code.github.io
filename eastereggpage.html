@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./index.css">
+        <title>Hidden Page</title>
+        <script src="https://unpkg.com/lucide@latest"></script>
+    </head>
+    <body>
+        <div class="flex-col justify-center align-center w-dvw h-dvh bg-primary">
+            <h1 class="text-accent">Congrats! You have found a hidden page on my Website!</h1>
+            <div class ="container">
+                <h1 style="color: rgb(49, 80, 218)">Medieval Hamster</h1>
+                <div id="history" class="history"></div>
+                <div class="controls">
+                  <input type="text"  id="user-input" class="user-input">
+                  <button id="user-action" class="user-action">
+                    <i data-lucide="send-horizontal"></i>
+                  </button>
+                </div>
+                 
+                <script>
+                    lucide.createIcons()
+                
+                    const history    = document.getElementById("history")
+                    const userInput  = document.getElementById("user-input")
+                    const userAction = document.getElementById("user-action")
+                
+                    let SCENE = null
+                    let playerName  = ""
+                    let playerItems = [ ]
+                
+                    function UserText(text) {
+                      const div = document.createElement("div")
+                      div.classList.add("user-text")
+                      div.innerText = text
+                      return div
+                    }
+                
+                    function StoryText(text) {
+                      const div = document.createElement("div")
+                      div.classList.add("story-text")
+                      div.innerText = text
+                      return div
+                    }
+                
+                    function SystemText(text) {
+                      const div = document.createElement("div")
+                      div.classList.add("system-text")
+                      div.innerText = text
+                      return div
+                    }
+                
+                    function print(text, ms=0) {
+                      setTimeout(() => {
+                        history.appendChild(text)
+                        history.scrollTop = history.scrollHeight
+                      }, ms)      
+                    }
+                
+                    function setScene(scene) {
+                      if(SCENE && SCENE.onLeave) {
+                        SCENE.onLeave()
+                      }
+                      SCENE = scene
+                      if(SCENE && SCENE.onEnter) {
+                        SCENE.onEnter()
+                      }
+                    }
+                
+                    function onUserInput(text) {
+                      if(!text) return;
+                      print(UserText(text))
+                      if(SCENE && SCENE.onInput) {
+                        SCENE.onInput(text)
+                      }
+                    }
+                
+                    function getUserInput(       ) {
+                      return userInput.value.trim()
+                    }
+                
+                    function setUserInput(text="") {
+                      userInput.value = text
+                    }
+                
+                    function captureUserInput() {
+                      let text = getUserInput()
+                                 setUserInput()
+                      return text
+                    }
+                
+                    userInput.onkeypress = function(e) {
+                      if(e.key === "Enter") {
+                        onUserInput(captureUserInput())
+                      }
+                    }
+                
+                    userAction.onclick = function(e) {
+                      onUserInput(captureUserInput())
+                    }
+                
+                    function choiceIncludesAny(choice, ...phrases) {
+                      for(let phrase of phrases)
+                        if( choice.toLowerCase().includes(phrase))
+                          return true
+                      return false
+                    }
+                
+                    function choiceIncludesAll(choice, ...phrases) {
+                      for(let phrase of phrases)
+                        if(!choice.toLowerCase().includes(phrase))
+                          return false
+                      return true
+                    }
+                
+                    function countPhrase (choice, phrase) {
+                      let i = 0;
+                      let n = 0;
+                
+                      while((i = choice.toLowerCase().indexOf(phrase, i)) >= 0) {
+                        n ++
+                        i ++
+                      }
+                
+                      return n
+                    }
+                
+                    function countPhrases(choice, ...phrases) {
+                      let n = 0
+                      for(let phrase of phrases)
+                        n += countPhrase(choice, phrase)
+                      return n
+                    }
+                
+                    function countEqualTo(choice, n, ...phrases) {
+                      return countPhrases(choice, phrases) === n
+                    }
+                
+                    function countEven(choice, ...phrases) {
+                      return countPhrases(choice, phrases) % 2 === 0
+                    }
+                
+                    function countOdd(choice, ...phrases) {
+                      return countPhrases(choice, phrases) % 2 === 1
+                    }
+                
+                    function countLessThan(choice, n, ...phrases) {
+                      return countPhrases(choice, phrases) < n
+                    }
+                
+                    function countMoreThan(choice, n, ...phrases) {
+                      return countPhrases(choice, phrases) > n
+                    }
+                
+                    function countLessThanOrEqualTo(choice, n, ...phrases) {
+                      return countPhrases(choice, phrases) <= n
+                    }
+                
+                    function countMoreThanOrEqualTo(choice, n, ...phrases) {
+                      return countPhrases(choice, phrases) >= n
+                    }
+                
+                    class Scene {
+                      onEnter() { }
+                      onLeave() { }
+                      onInput(text) { }
+                    }
+                
+                    class SceneStart extends Scene {
+                      onEnter() {
+                        print(SystemText(`Welcome, adventurer!`))
+                        print(StoryText(`Let's create your character! What is your name?`))
+                      }
+                
+                      onLeave() {
+                        print(StoryText(`That's a weird name. Whatever ${playerName.toUpperCase()}`))
+                      }
+                
+                      onInput(text) {
+                        playerName = text
+                        setScene(new SceneAdventureBoard())
+                      }
+                    }
+                
+                  
+                
+                    class SceneAdventureBoard extends Scene {
+                      onEnter() {
+                        print(StoryText(`You go into town to search for adventure. In the middle of town, there is a bulletin board with multiple availiable tasks.`))
+                        print(StoryText(`There are two options in particular that catch your eye. Both are written out on golden paper at the top of the board. You crane your neck and stand on your tiptoes to read the listings.`), 7000)
+                        print(StoryText(`The first note is a bounty note for THEODORE, DESTROYER OF WORLDS. From the drawing on the poster, he appears to be a hamter. But we don't judge peoples life decisions. Especially when their bounty payout is 2 million silver coins. The other paper is a missing pet poster. BOOOOORRRIIIINNNNGGGGGGGG. But hey, they'll pay you 150,000 gold if you find their pet, Pickles. So which one do you choose? Theodore or Pickles?`), 14500)
+                      }
+                
+                      onInput(text) {
+                        let Theodore = choiceIncludesAny(text, "T", "t", "Theo", "theo", "Theodore", "theodore", "dore")
+                        let Pickles = choiceIncludesAny(text, "pickles", "Pickles", "pick", "Pick", "les", "p", "P")
+                      
+                
+                        if(Theodore) {
+                          print(StoryText(`Alright, You decide to go after Theodore. You rip down the poster and read the top.`), 1000)
+                          print(StoryText(`Theodore's bounty note says to talk to Army General Aaquerlyn in his office in the tower by the main town entrance.`), 6000)
+                          print(StoryText(`You shove the paper in your pocket and walk towards the town entrance.`), 12000)
+                          print(StoryText(`You trip in the middle of the street over a pile of horse dung.`), 16000)
+                          print(StoryText(`You blink and suddenly you're in a gorgeous maiden's arms. She wipes the dirt and ...mud? off of your face and helps you to your feet. She hands you an apple from her apron pocker and leaves you standing alone in the middle of the town square, baffled. You shove the apple in your pocket.`), 24000)
+                          print(StoryText(`You now look at the sky and...it is starting to get dark. You determine that you were out of it for a few hours...$#!*`), 30000)
+                          print(StoryText(`You hustle to the town entrance and knock on the door of the guard tower. A soldier opens the door. He says helloo..., notices you and looks down at you in disdain. He looks absolutely disgusted by you.`), 37000)
+                          print(StoryText(`H-h-i-i-iii, you stutter, I-i-iii'm l-l-looking-g f-f-fo-f-for M-m-mm-mi-m-mis-ss-t-t-t-ter-er I m-m-m-m-mea-mean-n-n-n g-g-g-ge-genn-gener-r-al-l-l-l A-a-cck-qu-qu-e-e-rr-r-r-ee-eum-um...`), 49000)
+                          print(StoryText(`The soldier scowls but lets you in and leads you to a door. He opens it and you step inside.`), 63000)
+                          print(StoryText(`WHO LET THIS PILE OF HORSE $@*# *#@$@*# INTO MY OFFICE?!?!?!? The General screams when he sees you. oh. right. You still have horse droppings in your hair...`), 68000)
+                          print(StoryText(`S-s-s-sor-rr-ry s-s-sir. You stutter. You somewhat successfully manage to wipe and brush the horse poo off of you. Onto the floor of the general's office...`), 77000)
+                          print(StoryText(`DON'T COVER MY MARBLE FLOORS IN YOUR REPULSIVE @%#$#&**#$@%&* YOU B@$#@*%. He screams at you.`), 87000)
+                          print(StoryText(`S-s-s-s-sorry s-s-s-s-sir I-i'm h-h-h-h-here to a-as-s-s-s-sk ab-b-b-b-b-bou-ut th-th-this b-b-b-b-bou-ou-n-n-n-n-ty-y-y n-n-n-n-note. You hand over the bounty note.`), 92000)
+                          print(StoryText(`The general takes the note and at the same time picks up the cup on his desk and brings it to his lips.`), 103000)
+                          print(StoryText(`He reads the first word and spits out his tea, dropping his cup. It clatters to the floor. CLOSE THE DOOR he orders to the guard that let you in. The guard gives you a worried look as he shuts the door, leaving you alone with the general.`), 110000)
+                          print(StoryText(`You really wanna go after that he@then? Do you have any clue how dangerous he is? he warns, his voice hushed.`), 127000)
+                          print(StoryText(`Welp heres the info on him. He says handing you a folder with papers stuffed inside. Good luck. I'm not paying for your funeral.`), 137000)
+                          print(StoryText(`You are hastily ushered out of the guard tower and find yourself out on the street. You open the folder to see what info is in there. Theodore seems to spend lots of time slaying and looting soldiers in the woods.`), 145000)
+                          setScene(new SceneWoods())
+                        } else if(Pickles){
+                          print(StoryText(`Alright, You decide to go after Pickles. You rip down the poster and read the top.`),)
+                          print(StoryText(`The bottom of the poster says to go to the Grunion Residence and has an address. It's in the city, but on the richer side of town, so you're not exactly sure where it is.`), 2000)
+                          print(StoryText(`You start walking towards the richer side of town.`), 5000)
+                          print(StoryText(`You are soon in the side of the city with more lavish buildings and conditions, where the aristocrats reside.`), 7000)
+                          print(StoryText(`The only person you see is a servant girl trimming a rose bush in one of the front yards.`), 10000)
+                          print(StoryText(`You approach the girl and ask her about the lost pet poster. OH! She exclaims. You're here to help find mistress Aliya's sweet mister Pickles! Go knock on the door up there, she says pointing up the path through the yard she is working in.`), 15000)
+                          print(StoryText(`You walk up the path and knock on the door to the Grunion Residence.`), 18000)
+                          
+                          setScene(new SceneMansionDoor(), 20000)
+                        } else {
+                          print(SystemText(`I don't understand "${text}"... Please try again.`))
+                        }
+                      }
+                    }
+                    
+                    class SceneMansionDoor {
+                      onEnter() {
+                       print(StoryText(`How can I help you? The doorman asks.`),20000)
+                     }
+                
+                     onInput(text) {
+                      let pet = choiceIncludesAny(text, "pet", "poster", "missing")
+                      let pickles = choiceIncludesAny(text, "pickles", "Pickles", "pick", "Pick")
+                
+                      if (pet){
+                        print(StoryText(`Oh! You're here to find mistress Aliya's monsieur Pickles!`))
+                        setScene(new SceneMansion())
+                      }else if (pickles){
+                        print(StoryText(`Mr Pickles?! Youre here to find him for misstress Aliya?`))
+                        setScene(new SceneMansion())
+                      }else{
+                        print(StoryText(`Uhhhhhh...what? I think youre at the wrong place.`))
+                        print(StoryText(`Sorry buddy, you may well have seen some things you're not supposed to. I don't think I can let you go now.`),2000)
+                        print(StoryText(`He pulls you and you black out before you can realize what's happening.`),4000)
+                        print(StoryText(`ERROR.`),6000)
+                
+                        setScene(new SceneButlerEnd(),)
+                      }
+                
+                
+                
+                       setScene(new SceneWoods())
+                     }
+                    }
+                    class SceneMansion {
+                      onEnter() {
+                        print(StoryText(`The doorman leads you inside and into a large fancy sitting room.`))
+                      }
+                
+                
+                      onInput(text) {
+                        print(StoryText(`A pretty looking lady is sitting on a fancy piece of furniture that looks kind of like a horizontally long heavily cushioned chair, crying. The doorman taps her on the shoulder and whispers something in her ear. She immediately perks up.`))
+                        print(StoryText(`You're gonna find my Mister Pickles?!?! She screams in delight.`))
+                        print(StoryText(`I-i-i guess so. You say. Her smile widens. Great! Thank you so much! He's been missing for ages. Here I have a folder full of info for you.`))
+                        print(StoryText(`You look through the folder and its mostly boring stuff like Pickles's favorite foods and colors and piLlOw?s(no clue what those are) and such. But there is some useful info, such as where he was last sighted in the woods. `))
+                        print(StoryText(`UHH..l-l-looks li-ike he was last seen in th-the woods, so I'll go start searching there.`))
+                        print(StoryText(`Miss Aliya agrees with you and the doorman ushers you out the door.`))
+                        setScene(new SceneWoods())
+                      }
+                    }
+                    class SceneWoods {
+                
+                    }
+                    class SceneAirlock {
+                
+                    }
+                
+                    class SceneButlerEnd {
+                      onEnter() {
+                        print(StoryText(`The End`),8000)
+                      }
+                
+                      onInput(text) {
+                        print(SystemText(`The story has ended and you may not advance further. Refresh the page to try again.`))
+                      }
+                    }
+                
+                    setScene(new SceneStart())
+                
+                  </script>
+            
+
+
+
+
+            <div class="nav">
+                <a href="./index.html">Home</a>
+                <a href="./about.html" >About</a>
+                <a href="./contact.html" >Contact</a>
+                <a href="./projects.html" >Projects</a>
+                <a href="https://github.com/Josi-code" target="_blank">GitHub</a>
+                <a href="https://editor.p5js.org/Josi-code/sketches" target="_blank">p5.js</a>
+                <a href="https://www.maxpreps.com/co/colorado-springs/mitchell-marauders/athletes/jocelyn-carron/baseball/stats/?careerid=m9ua4iqfncan7" target="_blank">Baseball Stats</a>
+                <a href="https://www.maxpreps.com/co/colorado-springs/mitchell-marauders/athletes/josi-carron/softball/stats/?careerid=q22og681k4gee" target="_blank">Softball Stats</a>
+                <a href="https://www.etsy.com/shop/PineappleDragonShark" target="_blank">My Etsy!</a>
+            </div>
+        </div>
+    </body>
+</html>
