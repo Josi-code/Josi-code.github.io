@@ -282,19 +282,9 @@ h1:hover {
     height: 100px;
   }
 
-  .boxboi {
-    width  : 100dvw;
-    height : 100dvh;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Coral Pixels';
+  .boingyboi {
+    width: 30px;
+    position: absolute;
+    transform-origin: center;
+    transform: translate(0px, 0px) rotate(0rad);
   }
-
-  .boxboi:hover {
-    color: var(--theme-accent);
-    font-family: 'Dancing Script';
-    background: var(--theme-surface-content);
-    font-weight: 700;
-    padding: 2px;
-    border-radius: 1rem;
-}
