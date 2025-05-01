@@ -281,3 +281,20 @@ h1:hover {
   .movieposter {
     height: 100px;
   }
+
+  .boxboi {
+    width  : 100dvw;
+    height : 100dvh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Coral Pixels';
+  }
+
+  .boxboi:hover {
+    color: var(--theme-accent);
+    font-family: 'Dancing Script';
+    background: var(--theme-surface-content);
+    font-weight: 700;
+    padding: 2px;
+    border-radius: 1rem;
+}
