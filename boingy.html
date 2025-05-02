@@ -9,13 +9,15 @@
             <h1 class="text-accent">Congrats! You have found a hidden page on my website!</h1>
 
             <div>
-                <h1 style="color: rgb(49, 80, 218)">Boing...</h1>
                 <img src="./shark.png" class="shark">
+            </div>
+        </div>
                 <script>
                     const shark = document.querySelector(".shark");
+                    
+                    const acceleration = 10;
+                    const maximumSpeed = 10;
 
-                    const acceleration = 1000;
-                    const maximumSpeed = 1000;
                     const offset = 45 * Math.PI / 180;
 
                     let x = 0;
@@ -27,26 +29,42 @@
                     let a = 0;
 
                     function update(t, dt) {
-                        x = x + vx
-                        y = y + vy
+                        let cx = x + vx
+                        let cy = y + vy
+                        let dy = y - cy;
+                        let dx = x - cx;
 
-                        if (x > 100) {
-                            x = 100;
-                            vx = -5;
+                        let m = Math.hypot(dx, dy);
+                        if(m !== 0) {
+                        // normalize direction
+                        dx /= m;
+                        dy /= m;
+
+                        // update velocity
+                        vx += acceleration * dx * dt;
+                        vy += acceleration * dy * dt;
+
+                        // clamp velocity
+                        m = Math.hypot(vx, vy);
+                        if(m > maximumSpeed) {
+                            vx *= maximumSpeed / m;
+                            vy *= maximumSpeed / m;
                         }
-                        if (y > 80) {
-                            y = 80;
-                            vy = -5;
                         }
-                        if (x < 0) {
-                            x = 0;
-                            vx = 5;
-                        }
-                        if (y < 0) {
-                            y = 0;
-                            vy = 5;
-                        }
+
+                        // update rotation
+                        if(vx !== 0 || vy !== 0)
+                        a = Math.atan2(vy, vx);
+
+                        // update position
+                        x += vx * dt;
+                        y += vy * dt;
+
+                        // update element
+                        shark.style.transform = `translate(${x}px, ${y}px)   rotate(${a + offset}rad)`;
+                        console.log("Hello")
                     }
+                    
 
                     function animate(t0, t1, t2) {
                         let  t = (t2 - t0) / 1000;
@@ -62,11 +80,12 @@
                             t1 => requestAnimationFrame(
                                 t2 => animate(t0, t1, t2))))      
                 </script>
-            </div>
+            
             
             
             <div class="nav">
                 <span>
+                <a href="./howidoneit.html"><strong>How I did this!</strong></a>
                 <a href="./index.html">Home</a>
                 <a href="./about.html" >About</a>
                 <a href="./projects" >Projects</a>
@@ -78,7 +97,7 @@
                 </span>
                 
             </div>
-        </div>
+        
         
             
     </body>
