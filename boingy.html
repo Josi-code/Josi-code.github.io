@@ -28,7 +28,7 @@
 
                     let a = 0;
 
-                    function update(t, dt) {
+                    function update(x, y) {
                         let cx = x + vx
                         let cy = y + vy
                         let dy = y - cy;
@@ -40,16 +40,7 @@
                         dx /= m;
                         dy /= m;
 
-                        // update velocity
-                        vx += acceleration * dx * dt;
-                        vy += acceleration * dy * dt;
-
-                        // clamp velocity
-                        m = Math.hypot(vx, vy);
-                        if(m > maximumSpeed) {
-                            vx *= maximumSpeed / m;
-                            vy *= maximumSpeed / m;
-                        }
+                        console.log("Hello")
                         }
 
                         // update rotation
@@ -57,12 +48,12 @@
                         a = Math.atan2(vy, vx);
 
                         // update position
-                        x += vx * dt;
-                        y += vy * dt;
+                        x += x + vx;
+                        y += y + vy;
 
                         // update element
                         shark.style.transform = `translate(${x}px, ${y}px)   rotate(${a + offset}rad)`;
-                        console.log("Hello")
+                        
                     }
                     
 
