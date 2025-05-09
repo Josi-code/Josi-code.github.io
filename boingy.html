@@ -15,22 +15,25 @@
                 <script>
                     const shark = document.querySelector(".shark");
                     
-                    const acceleration = 10;
-                    const maximumSpeed = 10;
+                    const acceleration = 100;
+                    const maximumSpeed = 400;
 
                     const offset = 45 * Math.PI / 180;
 
-                    let x = 0;
-                    let y = 0;
+                    let x = 5;
+                    let y = 5;
 
-                    let vx = 5;
-                    let vy = 5;
+                    let maxX = 500
+                    let maxY = 500
+
+                    let vx = acceleration;
+                    let vy = acceleration;
 
                     let a = 0;
 
                     function update(x, y) {
-                        let cx = x + vx
-                        let cy = y + vy
+                        let cx = x + vx;
+                        let cy = y + vy;
                         let dy = y - cy;
                         let dx = x - cx;
 
@@ -39,8 +42,6 @@
                         // normalize direction
                         dx /= m;
                         dy /= m;
-
-                        console.log("Hello")
                         }
 
                         // update rotation
@@ -48,21 +49,48 @@
                         a = Math.atan2(vy, vx);
 
                         // update position
-                        x += x + vx;
-                        y += y + vy;
+                        if (x < maxX) {
+                            x = x + vx;
+                        }
+
+                        if (x < 0) {
+                            vx = acceleration;
+                        }
+
+                        if (x > maxX) {
+                            vx = -acceleration;
+                            x = x + vx;
+                        }
+
+
+
+                        if(y < maxY) {
+                           y = y + vy; 
+                        }
+
+                        if(y < 0) {
+                            vy = acceleration;
+                        }
+
+                        if (y > maxY) {
+                            vy = -acceleration;
+                            y = y + vy;
+                        }
+                        
+                        
 
                         // update element
-                        shark.style.transform = `translate(${x}px, ${y}px)   rotate(${a + offset}rad)`;
+                        shark.style.transform = `translate(${x}px, ${y}px)   rotate(${a - offset}rad)`;
                         
                     }
                     
-
+                    
                     function animate(t0, t1, t2) {
                         let  t = (t2 - t0) / 1000;
                         let dt = (t2 - t1) / 1000;
 
                         update(t, dt);
-
+                        console.log("Hello")
                         requestAnimationFrame(t3 => animate(t0, t2, t3));
                     }
 

@@ -288,3 +288,10 @@ h1:hover {
     transform-origin: center;
     transform: translate(0px, 0px) rotate(0rad);
   }
+
+  .infotext {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: var(--theme-accent-content);
+  }

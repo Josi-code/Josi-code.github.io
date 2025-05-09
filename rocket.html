@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        inset: 0;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        overflow: hidden;
+        background: #01162E;
+      }
+      
+      .rocket {
+        width: 100px;
+        position: absolute;
+        transform-origin: center;
+        transform: translate(0px, 0px) rotate(0rad);
+      }
+  
+      .stars {
+        position: absolute;
+        top : 0px;
+        left: 0px;
+        width : 100dvw;
+        height: 100dvh;
+      }
+  
+      .bg {
+        position: absolute;
+        top :0px;
+        left:0px;
+        width : 100dvw;
+        height: 100dvh;
+        
+        background: linear-gradient(180deg, 
+          rgba(1, 22, 46, 1) 0%,
+          rgba(0, 29, 55, 1) 20%,
+          rgba(0, 39, 70, 1) 40%, 
+          rgba(1, 49, 85, 1) 60%, 
+          rgba(0, 58, 99, 1) 80%, 
+          rgba(1, 66, 109, 1) 100%
+        ) fixed;
+  
+        
+        filter: blur(32px);
+      }
+  
+  
+  
+    </style>
+    <title>Rocket</title>
+  </head>
+  <body>
+    <div class="bg"></div>
+    <div class="stars"></div>
+    <img src="./rocket2.png" class="rocket">
+  
+    <script>
+      const rocket = document.querySelector(".rocket");
+
+      const acceleration = 1000;
+      const maximumSpeed = 1000;
+      const offset = 45 * Math.PI / 180;
+
+      // rocket position (in pixels)
+      let x  = 0;
+      let y  = 0;
+      // rocket velocity (in pixels per second)
+      let vx = 0;
+      let vy = 0;
+      // rocket rotation (in radians)
+      let a = 0;
+
+      // mouse position
+      let mx = 0;
+      let my = 0;
+
+      document.onmousemove = function(e) {
+        mx = e.clientX;
+        my = e.clientY;
+      }
+
+      function update(t, dt) {
+        let cx = x + rocket.clientWidth  / 2;
+        let cy = y + rocket.clientHeight / 2;
+        let dy = my - cy;
+        let dx = mx - cx;
+
+        let m = Math.hypot(dx, dy);
+        if(m !== 0) {
+          // normalize direction
+          dx /= m;
+          dy /= m;
+
+          // update velocity
+          vx += acceleration * dx * dt;
+          vy += acceleration * dy * dt;
+
+          // clamp velocity
+          m = Math.hypot(vx, vy);
+          if(m > maximumSpeed) {
+            vx *= maximumSpeed / m;
+            vy *= maximumSpeed / m;
+          }
+        }
+
+        // update rotation
+        if(vx !== 0 || vy !== 0)
+          a = Math.atan2(vy, vx);
+
+        // update position
+        x += vx * dt;
+        y += vy * dt;
+
+        // update element
+        rocket.style.transform = `translate(${x}px, ${y}px) rotate(${a + offset}rad)`;
+      }
+
+      function animate(t0, t1, t2) {
+        let  t = (t2 - t0) / 1000;
+        let dt = (t2 - t1) / 1000;
+
+        update(t, dt);
+
+        requestAnimationFrame(t3 => animate(t0, t2, t3));
+      }
+
+      requestAnimationFrame(
+        t0 => requestAnimationFrame(
+          t1 => requestAnimationFrame(
+            t2 => animate(t0, t1, t2))))      
+
+    </script>
+  </body>
+
+
+</html>
